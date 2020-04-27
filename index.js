@@ -7,11 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const customBurgerForm = document.querySelector("#custom-burger")
 
-  fetch(fetchURL)
-  .then(r => r.json())
-  .then(resObj => {
-    resObj.forEach(eachBurger => renderBurgers(eachBurger))
-  })
+  customBurgerForm.addEventListener("submit", getCustomBurger)
+
+  function fetchBurgers(){
+    fetch(fetchURL)
+    .then(r => r.json())
+    .then(resObj => {
+      resObj.forEach(eachBurger => renderBurgers(eachBurger))
+    })
+  }
 
   function renderBurgers(burger){
     const newBurgerDiv = document.createElement("div")
@@ -32,13 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function addEventListenerToNewBurger(event){
 
-    const orderList = document.querySelector("#order-list")
-
     const addOrderButton = this.querySelector(".button")
 
-    const burgerTitle = this.querySelector(".burger_title")
-
     if(event.target == addOrderButton){
+
+      const orderList = document.querySelector("#order-list")
+
+      const burgerTitle = this.querySelector(".burger_title")
 
       const newOrderLI = document.createElement("li")
 
@@ -47,8 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
       orderList.append(newOrderLI)
     }
   }
-
-  customBurgerForm.addEventListener("submit", getCustomBurger)
 
   function getCustomBurger(event){
 
@@ -80,5 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(resObj => renderBurgers(resObj))
 
   }
+
+  fetchBurgers()
 
 })
