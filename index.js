@@ -18,7 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderBurgers(burger){
+    
     const newBurgerDiv = document.createElement("div")
+
     newBurgerDiv.className = "burger"
 
     newBurgerDiv.innerHTML = ` 
@@ -36,13 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function addEventListenerToNewBurger(event){
 
-    const addOrderButton = this.querySelector(".button")
-
-    if(event.target == addOrderButton){
+    if(event.target.className == "button"){
 
       const orderList = document.querySelector("#order-list")
 
-      const burgerTitle = this.querySelector(".burger_title")
+      const burgerDiv = event.target.parentNode
+
+      const burgerTitle = burgerDiv.querySelector(".burger_title")
 
       const newOrderLI = document.createElement("li")
 
@@ -78,8 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       body: JSON.stringify(burger)
     })
-    .then(r => r.json())
-    .then(resObj => renderBurgers(resObj))
+    .then(response => response.json())
+    .then(responseObject => renderBurgers(responseObject))
 
   }
 
